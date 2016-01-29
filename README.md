@@ -25,16 +25,16 @@ Facebook was awesome enough to make some test users for this app. There are 3 te
 app. Their images are kinda boring but they can be changed from the app.
 
 ### Will Smith
--Email : will_bovrsby_smith@tfbnw.net 
--Password : password1234
+- Email : will_bovrsby_smith@tfbnw.net 
+- Password : password1234
 
 ### Scar Jo
--Email : scar_gurxqls_jo@tfbnw.net 
--Password : password1234
+- Email : scar_gurxqls_jo@tfbnw.net 
+- Password : password1234
 
 ### Rick Roll
--Email : rick_ooncjox_roll@tfbnw.net 
--Password : password1234
+- Email : rick_ooncjox_roll@tfbnw.net 
+- Password : password1234
 
 ## Using The App
 ### Login
