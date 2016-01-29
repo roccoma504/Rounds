@@ -4,12 +4,18 @@
 
 ## Intro
 This project is my submission for the Capstone for the iOS programming with Swift nanodegree program @ Udacity. The point of
-this application is to make buying rounds of drinks at bars easier. The easiest way to get running would be a clone of this
-repo or to check the releases tab for the zipped version.
+this application is to make buying rounds of drinks at bars easier.
 
 ## What's Inside
 Inside this repo is everything you need to build and run the app in Xcode on the iOS simulator. CocoPods was used
 to compile dependancies and the associated Podfile has been committed. Speaking of dependancies...
+
+## Running
+1. Clone the repo
+2. (optional) grab the zipped version from the releases tab
+3. Load the project in Xcode using the round.xcworkspace file. Loading any of the project files will not work due to the
+Pod dependancies.
+
 
 ## Dependancies and Other Fun Things
 The app relies and/or includes the following 3rd party frameworks/tools.
