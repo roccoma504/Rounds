@@ -1,5 +1,4 @@
 # Rounds
-[![Build Status](https://travis-ci.org/roccoma504/Rounds.svg?branch=master)](https://travis-ci.org/roccoma504/Rounds)
 
 ## Welcome to Rounds a new way to drink with friends.
 
@@ -16,7 +15,6 @@ to compile dependancies and the associated Podfile has been committed. Speaking 
 The app relies and/or includes the following 3rd party frameworks/tools.
 - Parse (as a BaaS)
 - Facebook (for login/auth)
-- Travis (as a CI tool)
 
 Any keys have been committed with the project to assist the review. 
 
