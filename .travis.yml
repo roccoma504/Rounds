@@ -7,4 +7,4 @@ branches:
 osx_image: xcode7.1
 xcode_sdk: iphonesimulator9.1 
 
-script: xcodebuild -sdk iphonesimulator9.1 build clean -enableCodeCoverage YES -project round.xcodeproj -scheme round CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+script: xcodebuild -sdk iphonesimulator9.1 build clean -project round.xcodeproj -scheme round CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
