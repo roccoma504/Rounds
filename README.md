@@ -8,13 +8,13 @@ this application is to make buying rounds of drinks at bars easier.
 
 ## What's Inside
 Inside this repo is everything you need to build and run the app in Xcode on the iOS simulator. CocoPods was used
-to compile dependancies and the associated Podfile has been committed. Speaking of dependancies...
+to compile dependancies and the associated Podfile has been committed.
 
 ## Running
 1. Clone the repo
 2. (optional) grab the zipped version from the releases tab
 3. Load the project in Xcode using the round.xcworkspace file. Loading any of the project files will not work due to the
-Pod dependancies.
+Pod dependancies. Speaking of dependancies...
 
 
 ## Dependancies and Other Fun Things
