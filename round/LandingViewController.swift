@@ -29,6 +29,7 @@ class LandingViewController: UIViewController, PFLogInViewControllerDelegate {
             selector: "registeredApp:", name:FBSDKProfileDidChangeNotification, object: nil)
         
             if (PFUser.currentUser() == nil) || transFromLobby {
+                transFromLobby = false
                 
                 let loginViewController = LoginViewController()
                 loginViewController.delegate = self

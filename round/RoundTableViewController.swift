@@ -14,6 +14,9 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var buyRoundButton: UIButton!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var activityView: UIActivityIndicatorView!
+    @IBOutlet weak var changeButton: UIBarButtonItem!
+    @IBOutlet weak var leaveButton: UIBarButtonItem!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     private var profilesReady = false
     private var names: [String]!
@@ -21,8 +24,10 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
     private var ids: [String]!
     private var next: [Int]!
     private var timer: NSTimer!
+    private var progressTimer: NSTimer!
     private var tableUserArray: [TableUser] = []
     private var photoCount = 0
+    private var progress : Float = 0.0
     private let defaults = NSUserDefaults.standardUserDefaults()
     
     var refreshControl:UIRefreshControl!
@@ -53,6 +58,9 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         buyRoundButton.layer.cornerRadius = 5
         buyRoundButton.layer.borderWidth = 1
         buyRoundButton.layer.borderColor = UIColor.whiteColor().CGColor
+
+        progressBar.setProgress(progress, animated: true)
+        
         
         lobbyMembers()
         
@@ -62,14 +70,24 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
             userInfo: nil,
             repeats: true)
         
+        progressTimer = NSTimer.scheduledTimerWithTimeInterval(
+            5.45, target:self,
+            selector: Selector("updateProgress:"),
+            userInfo: nil,
+            repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
         timer.invalidate()
+        progressTimer.invalidate()
     }
     
-    func refresh(sender:AnyObject)
-    {
+    func refresh(sender:AnyObject) {
+        progressTimer.invalidate()
+        progress = 0.0
+        dispatch_async(dispatch_get_main_queue(),{
+            self.progressBar.setProgress(self.progress, animated: true)
+        })
         names = []
         drinks = []
         ids = []
@@ -78,6 +96,19 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         profilesReady = false
         photoCount = 0
         reloadTable()
+        progressTimer = NSTimer.scheduledTimerWithTimeInterval(
+            5.45, target:self,
+            selector: Selector("updateProgress:"),
+            userInfo: nil,
+            repeats: true)
+    }
+    
+    func updateProgress(sender:AnyObject) {
+        progress = progress + 0.1
+        dispatch_async(dispatch_get_main_queue(),{
+            self.progressBar.setProgress(self.progress, animated: true)
+        })
+    
     }
     
     private func lobbyMembers() {

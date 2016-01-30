@@ -118,7 +118,6 @@ class LobbyViewController: UIViewController {
             let segueDestVC = segue.destinationViewController
             let destVC = segueDestVC as! LandingViewController
             destVC.transFromLobby = true
-            PFUser .logOut()
         }
     }
     

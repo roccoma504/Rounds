@@ -359,14 +359,23 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="zqe-p2-cwC">
                                 <rect key="frame" x="282" y="85" width="37" height="37"/>
                             </activityIndicatorView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="Qm6-JS-z4B">
+                                <rect key="frame" x="20" y="39" width="560" height="2"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="progressTintColor" red="0.058823529409999999" green="0.3803921569" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="0.1058823529" green="0.73725490199999999" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zqe-p2-cwC" firstAttribute="centerX" secondItem="Uo4-z6-Agt" secondAttribute="centerX" id="2ZK-zJ-oME"/>
+                            <constraint firstItem="Qm6-JS-z4B" firstAttribute="trailing" secondItem="s5X-VM-Ezr" secondAttribute="trailing" id="542-oD-hNW"/>
+                            <constraint firstItem="Qm6-JS-z4B" firstAttribute="leading" secondItem="s5X-VM-Ezr" secondAttribute="leading" id="585-7f-yTr"/>
                             <constraint firstItem="jGw-4P-ygb" firstAttribute="leading" secondItem="qq3-tl-WUb" secondAttribute="leading" id="9Js-Xr-dCc"/>
                             <constraint firstItem="Y2a-W9-3DX" firstAttribute="leading" secondItem="jGw-4P-ygb" secondAttribute="leading" id="BFk-b2-oJQ"/>
                             <constraint firstItem="s5X-VM-Ezr" firstAttribute="leading" secondItem="qq3-tl-WUb" secondAttribute="leadingMargin" id="DCz-dx-jJh"/>
                             <constraint firstItem="zqe-p2-cwC" firstAttribute="bottom" secondItem="Uo4-z6-Agt" secondAttribute="bottom" id="F9K-8d-P5W"/>
+                            <constraint firstItem="Qm6-JS-z4B" firstAttribute="bottom" secondItem="s5X-VM-Ezr" secondAttribute="bottom" id="HxK-at-Lba"/>
                             <constraint firstItem="Uo4-z6-Agt" firstAttribute="top" secondItem="s5X-VM-Ezr" secondAttribute="bottom" constant="45" id="JgT-ru-eu9"/>
                             <constraint firstItem="s5X-VM-Ezr" firstAttribute="top" secondItem="ulr-wT-G4Z" secondAttribute="bottom" id="KPR-XK-wfj"/>
                             <constraint firstItem="Y2a-W9-3DX" firstAttribute="top" secondItem="Uo4-z6-Agt" secondAttribute="bottom" constant="70" id="Nki-LC-c0s"/>
@@ -381,7 +390,10 @@
                     <connections>
                         <outlet property="activityView" destination="zqe-p2-cwC" id="2Ib-E9-Mvt"/>
                         <outlet property="buyRoundButton" destination="Uo4-z6-Agt" id="ePa-tD-0KW"/>
+                        <outlet property="changeButton" destination="6LP-ji-HA1" id="lSC-Kh-2ru"/>
                         <outlet property="idLabel" destination="s5X-VM-Ezr" id="mE8-94-mLL"/>
+                        <outlet property="leaveButton" destination="Zo4-Gh-kKU" id="B0H-jJ-UGJ"/>
+                        <outlet property="progressBar" destination="Qm6-JS-z4B" id="3RR-Mp-bBk"/>
                         <outlet property="tableView" destination="Y2a-W9-3DX" id="I4e-CX-UOm"/>
                         <segue destination="h6n-zf-d24" kind="presentation" identifier="roundToLobby" id="9B0-Yf-PXd"/>
                     </connections>
