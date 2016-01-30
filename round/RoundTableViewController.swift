@@ -40,7 +40,7 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
     /**
      Everytime the view apears we want to set up the table and start
      the refresh timer.
-*/
+     */
     override func viewDidAppear(animated: Bool) {
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle =
@@ -58,28 +58,24 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         buyRoundButton.layer.cornerRadius = 5
         buyRoundButton.layer.borderWidth = 1
         buyRoundButton.layer.borderColor = UIColor.whiteColor().CGColor
-
+        
         progressBar.setProgress(progress, animated: true)
         
-        
         lobbyMembers()
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(
-            60.0, target:self,
-            selector: Selector("refresh:"),
-            userInfo: nil,
-            repeats: true)
-        
-        progressTimer = NSTimer.scheduledTimerWithTimeInterval(
-            5.45, target:self,
-            selector: Selector("updateProgress:"),
-            userInfo: nil,
-            repeats: true)
+        startTimers()
     }
     
     override func viewDidDisappear(animated: Bool) {
-        timer.invalidate()
         progressTimer.invalidate()
+    }
+    
+    private func startTimers() {
+        progressTimer = NSTimer.scheduledTimerWithTimeInterval(
+            60.0, target:self,
+            selector: Selector("updateProgress:"),
+            userInfo: nil,
+            repeats: true)
+        
     }
     
     func refresh(sender:AnyObject) {
@@ -96,11 +92,7 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         profilesReady = false
         photoCount = 0
         reloadTable()
-        progressTimer = NSTimer.scheduledTimerWithTimeInterval(
-            5.45, target:self,
-            selector: Selector("updateProgress:"),
-            userInfo: nil,
-            repeats: true)
+        startTimers()
     }
     
     func updateProgress(sender:AnyObject) {
@@ -108,14 +100,18 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         dispatch_async(dispatch_get_main_queue(),{
             self.progressBar.setProgress(self.progress, animated: true)
         })
-    
+        print(progress)
+        if progress > 1.1 {
+            refresh(self)
+            print("here")
+        }
     }
     
     private func lobbyMembers() {
         activity(true)
         let parseNetworkOps = ParseNetworkOps(roomId: receivedRoomID)
         parseNetworkOps.getLobbyMembers { (result) -> Void in
-            // These are guarenteed to be in oder.
+            // These are guarenteed to be in order.
             self.names = parseNetworkOps.userNameArray()
             self.drinks = parseNetworkOps.userDrinkArray()
             self.ids = parseNetworkOps.userfacebookIdArray()
@@ -136,9 +132,6 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
                         
                         if id == self.defaults.stringForKey("facebookId") {
                             self.defaults.setInteger(self.next[tempIndex], forKey: "place")
-                            print("changed place")
-                            print("default is -> " + String(self.defaults.integerForKey("place")))
-                            
                         }
                         
                         self.photoCount += 1
@@ -160,7 +153,6 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         dispatch_async(dispatch_get_main_queue(),{
             self.activity(true)
             self.buyRoundButton.hidden = true
-            print(self.defaults.integerForKey("place"))
             if self.defaults.integerForKey("place") == 0 {
                 self.buyRoundButton.hidden = false
             }

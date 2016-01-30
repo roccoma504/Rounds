@@ -24,7 +24,7 @@ class UpdateUser : NSObject {
         if place == 0 {
             place = userCount - 1
         }
-        
+            
         else {
             place = place - 1
         }
@@ -43,6 +43,6 @@ class UpdateUser : NSObject {
     }
     
     func newPlace() -> Int {
-    return place
+        return place
     }
 }

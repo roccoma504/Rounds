@@ -90,7 +90,8 @@ class LoginViewController: PFLogInViewController{
                         currentFrame.width,
                         currentFrame.height)
                 }
-            }, completion: nil)
+            },
+            completion: nil)
     }
 }
 

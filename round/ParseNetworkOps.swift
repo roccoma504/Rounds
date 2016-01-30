@@ -72,10 +72,6 @@ class ParseNetworkOps {
         }
     }
     
-    /**
-     Returns the user names
-     Return: the array of user names first and last
-     */
     func userNameArray() -> [String]! {
         return userNames
     }
