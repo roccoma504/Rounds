@@ -13,6 +13,7 @@
 		394D71461C4F2BD8007B36E1 /* RoundTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394D71451C4F2BD8007B36E1 /* RoundTableViewController.swift */; };
 		394D71481C4F2C91007B36E1 /* RoundTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394D71471C4F2C91007B36E1 /* RoundTableViewCell.swift */; };
 		394D714A1C5064B7007B36E1 /* ParseNetworkOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394D71491C5064B7007B36E1 /* ParseNetworkOps.swift */; };
+		395BEBAB1C5C5546007D698C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395BEBAA1C5C5546007D698C /* InfoViewController.swift */; };
 		3979BE5C1C4DC44A0058C0F5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3979BE5B1C4DC44A0058C0F5 /* LoginViewController.swift */; };
 		3979BE5E1C4DC8830058C0F5 /* FacebookProfilePicOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3979BE5D1C4DC8830058C0F5 /* FacebookProfilePicOps.swift */; };
 		3979BE601C4DC9590058C0F5 /* DrinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3979BE5F1C4DC9590058C0F5 /* DrinkViewController.swift */; };
@@ -54,6 +55,7 @@
 		394D71451C4F2BD8007B36E1 /* RoundTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundTableViewController.swift; sourceTree = "<group>"; };
 		394D71471C4F2C91007B36E1 /* RoundTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundTableViewCell.swift; sourceTree = "<group>"; };
 		394D71491C5064B7007B36E1 /* ParseNetworkOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseNetworkOps.swift; sourceTree = "<group>"; };
+		395BEBAA1C5C5546007D698C /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		3979BE571C4DC3FF0058C0F5 /* round-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "round-Bridging-Header.h"; sourceTree = "<group>"; };
 		3979BE5B1C4DC44A0058C0F5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3979BE5D1C4DC8830058C0F5 /* FacebookProfilePicOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookProfilePicOps.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				39ED764F1C4DC1DF00C9EBB8 /* AppDelegate.swift */,
 				3979BE5F1C4DC9590058C0F5 /* DrinkViewController.swift */,
 				3979BE5D1C4DC8830058C0F5 /* FacebookProfilePicOps.swift */,
+				395BEBAA1C5C5546007D698C /* InfoViewController.swift */,
 				39ED76511C4DC1DF00C9EBB8 /* LandingViewController.swift */,
 				394D713F1C4EEA73007B36E1 /* LobbyViewController.swift */,
 				3979BE5B1C4DC44A0058C0F5 /* LoginViewController.swift */,
@@ -364,6 +367,7 @@
 				3979BE5C1C4DC44A0058C0F5 /* LoginViewController.swift in Sources */,
 				394D71481C4F2C91007B36E1 /* RoundTableViewCell.swift in Sources */,
 				39ED76521C4DC1DF00C9EBB8 /* LandingViewController.swift in Sources */,
+				395BEBAB1C5C5546007D698C /* InfoViewController.swift in Sources */,
 				394D71401C4EEA73007B36E1 /* LobbyViewController.swift in Sources */,
 				394D71461C4F2BD8007B36E1 /* RoundTableViewController.swift in Sources */,
 				3979BE601C4DC9590058C0F5 /* DrinkViewController.swift in Sources */,

@@ -24,13 +24,19 @@ class User: NSManagedObject {
     private var parseObjId : String!
     private let defaults = NSUserDefaults.standardUserDefaults()
     
-    init(name: String,
+    convenience init(name: String,
         id: String,
         facebookId: String,
         favoriteDrink: String,
         inLobby: Bool,
         lobbyNumber: String,
         place: Int) {
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext
+
+            let entity = NSEntityDescription.entityForName("User", inManagedObjectContext: managedContext)!
+            self.init(entity: entity, insertIntoManagedObjectContext: managedContext)
+            
             self.name = name
             self.id = id
             self.facebookId = facebookId

@@ -28,7 +28,7 @@ func randomString() -> String {
  - entity - the entity we want to find
  */
 func objectRetrieve(context : NSManagedObjectContext,
-    objectid : String,
+    name : String,
     entity : String) -> AnyObject {
         
         // Define the entity and the request.
@@ -37,7 +37,7 @@ func objectRetrieve(context : NSManagedObjectContext,
         
         // Set the entity and the predicate to the request.
         request.entity = entityToFind
-        request.predicate = NSPredicate(format: "(id = %@)", objectid)
+        request.predicate = NSPredicate(format: "(name = %@)", name)
         
         // Attempt to find the object(s) in core data and return the first vale.
         do {

@@ -108,13 +108,13 @@ class LobbyViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier != "logout" {
+        if segue.identifier == "lobbyToRound" {
             let segueDestVC = segue.destinationViewController
             let destVC = segueDestVC as! RoundTableViewController
             destVC.receivedRoomID = randomRoundID
         }
             
-        else {
+        else if segue.identifier == "logout"  {
             let segueDestVC = segue.destinationViewController
             let destVC = segueDestVC as! LandingViewController
             destVC.transFromLobby = true
