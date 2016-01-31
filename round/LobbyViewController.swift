@@ -49,15 +49,21 @@ class LobbyViewController: UIViewController {
         defaults.setInteger(0, forKey: "place")
         
         newUser.parseId { (result) -> Void in
-            newUser.updateParse({ (result) -> Void in
-                if newUser.errorPresent() {
-                    self.showAlert(newUser.errorText())
-                }
-                else {
-                    self.performSegueWithIdentifier("lobbyToRound", sender: self)
-                }
+            if newUser.errorPresent() {
+                self.showAlert(newUser.errorText())
                 self.activity(false)
-            })
+            }
+            else{
+                newUser.updateParse({ (result) -> Void in
+                    if newUser.errorPresent() {
+                        self.showAlert(newUser.errorText())
+                    }
+                    else {
+                        self.performSegueWithIdentifier("lobbyToRound", sender: self)
+                    }
+                    self.activity(false)
+                })
+            }
         }
     }
     
@@ -73,32 +79,39 @@ class LobbyViewController: UIViewController {
             // to put the user at the end of the queue.
             parseNetworkOps.getLobbyCount({ (result) -> Void in
                 
-                // Set the new user place which is the count of the users
-                // in the round (end of queue).
-                self.defaults.setInteger(parseNetworkOps.userCount(), forKey: "place")
-                
-                let newUser = User(
-                    name: self.defaults.stringForKey("name")!,
-                    id: self.defaults.stringForKey("objId")!,
-                    facebookId: self.defaults.stringForKey("facebookId")!,
-                    favoriteDrink: self.defaults.stringForKey("drink")!,
-                    inLobby: true,
-                    lobbyNumber: self.roomIdTextField.text!,
-                    place: parseNetworkOps.userCount())
-                
-                // If everything went well, transition to the lobby view.
-                newUser.parseId({ (result) -> Void in
-                    newUser.updateParse({ (result) -> Void in
-                        if newUser.errorPresent() {
-                            self.showAlert(newUser.errorText())
-                        }
-                        else {
-                            self.randomRoundID = self.roomIdTextField.text
-                            self.performSegueWithIdentifier("lobbyToRound", sender: self)
-                        }
-                        self.activity(false)
-                    })
-                })
+                if parseNetworkOps.errorPresent() {
+                    self.showAlert(parseNetworkOps.errorText())
+                    self.activity(false)
+                }
+                else {
+                    
+                    // Set the new user place which is the count of the users
+                    // in the round (end of queue).
+                    self.defaults.setInteger(parseNetworkOps.userCount(), forKey: "place")
+                    
+                    let newUser = User(
+                        name: self.defaults.stringForKey("name")!,
+                        id: self.defaults.stringForKey("objId")!,
+                        facebookId: self.defaults.stringForKey("facebookId")!,
+                        favoriteDrink: self.defaults.stringForKey("drink")!,
+                        inLobby: true,
+                        lobbyNumber: self.roomIdTextField.text!,
+                        place: parseNetworkOps.userCount())
+                    
+                    // If everything went well, transition to the lobby view.
+                    newUser.parseId({ (result) -> Void in
+                        newUser.updateParse({ (result) -> Void in
+                            if newUser.errorPresent() {
+                                self.showAlert(newUser.errorText())
+                            }
+                            else {
+                                self.randomRoundID = self.roomIdTextField.text
+                                self.performSegueWithIdentifier("lobbyToRound", sender: self)
+                            }
+                            self.activity(false)
+                            
+                        })
+                    })}
             })
         }
         else {

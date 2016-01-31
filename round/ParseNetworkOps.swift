@@ -17,6 +17,8 @@ class ParseNetworkOps {
     private var objIds : [String] = []
     private var places : [Int] = []
     private var count = 0
+    private var errorMessage : String!
+    private var isError : Bool = false
     
     init(roomId : String){
         self.roomId = roomId
@@ -45,6 +47,8 @@ class ParseNetworkOps {
                     }
                 }
             } else {
+                self.isError = true
+                self.errorMessage = "The server could not be reached. Check your connection."
                 print("Error: \(error!) \(error!.userInfo)")
             }
             completion(result: true)
@@ -65,11 +69,26 @@ class ParseNetworkOps {
                     self.count = objects.count
                 }
             } else {
-                // Log details of the failure
+                self.isError = true
+                self.errorMessage = "The server could not be reached. Check your connection."
                 print("Error: \(error!) \(error!.userInfo)")
             }
             completion(result: true)
         }
+    }
+    
+    /** Returns a flag noting if there was an error.
+     - Returns: error flag
+     */
+    func errorPresent() -> Bool {
+        return isError
+    }
+    
+    /** Returns an error message. Will be nil if there is no error.
+     - Returns: the error message
+     */
+    func errorText() -> String {
+        return errorMessage
     }
     
     func userNameArray() -> [String]! {
