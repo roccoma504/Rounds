@@ -124,7 +124,6 @@ class User: NSManagedObject {
         }
     }
     
-    
     /** Returns a flag noting if there was an error.
      - Returns: error flag
      */

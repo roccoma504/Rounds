@@ -71,7 +71,7 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
     
     private func startTimers() {
         progressTimer = NSTimer.scheduledTimerWithTimeInterval(
-            60.0, target:self,
+            5.0, target:self,
             selector: Selector("updateProgress:"),
             userInfo: nil,
             repeats: true)
@@ -103,7 +103,6 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         print(progress)
         if progress > 1.1 {
             refresh(self)
-            print("here")
         }
     }
     
@@ -111,40 +110,50 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         activity(true)
         let parseNetworkOps = ParseNetworkOps(roomId: receivedRoomID)
         parseNetworkOps.getLobbyMembers { (result) -> Void in
-            // These are guarenteed to be in order.
-            self.names = parseNetworkOps.userNameArray()
-            self.drinks = parseNetworkOps.userDrinkArray()
-            self.ids = parseNetworkOps.userfacebookIdArray()
-            self.next = parseNetworkOps.placeArray()
-            // Here we do some sorting as the image may not come back in the
-            // order we request them in.
-            for id in self.ids {
-                let facebookPicture = FacebookProfilePicOps(userID: id)
-                facebookPicture.profilePic({ (result) -> Void in
-                    if !(facebookPicture.errorPresent()) {
-                        let tempIndex = self.ids.indexOf(id)!
-                        
-                        let tempUser = TableUser(
-                            name: self.names[tempIndex],
-                            drink: self.drinks[tempIndex],
-                            place: self.next[tempIndex],
-                            image: facebookPicture.profilePicture())
-                        
-                        if id == self.defaults.stringForKey("facebookId") {
-                            self.defaults.setInteger(self.next[tempIndex], forKey: "place")
+            if parseNetworkOps.errorPresent() {
+                self.activity(false)
+                self.showAlert(parseNetworkOps.errorText())
+            }
+            else {
+                // These are guarenteed to be in order.
+                self.names = parseNetworkOps.userNameArray()
+                self.drinks = parseNetworkOps.userDrinkArray()
+                self.ids = parseNetworkOps.userfacebookIdArray()
+                self.next = parseNetworkOps.placeArray()
+                // Here we do some sorting as the image may not come back in the
+                // order we request them in.
+                for id in self.ids {
+                    let facebookPicture = FacebookProfilePicOps(userID: id)
+                    facebookPicture.profilePic({ (result) -> Void in
+                        if !(facebookPicture.errorPresent()) {
+                            let tempIndex = self.ids.indexOf(id)!
+                            
+                            let tempUser = TableUser(
+                                name: self.names[tempIndex],
+                                drink: self.drinks[tempIndex],
+                                place: self.next[tempIndex],
+                                image: facebookPicture.profilePicture())
+                            
+                            if id == self.defaults.stringForKey("facebookId") {
+                                self.defaults.setInteger(self.next[tempIndex], forKey: "place")
+                            }
+                            
+                            self.photoCount += 1
+                            self.tableUserArray.append(tempUser)
+                            
+                            if self.photoCount == self.names.count {
+                                self.tableUserArray = self.tableUserArray.sort({$0 < $1})
+                                self.profilesReady = true
+                                self.reloadTable()
+                            }
                         }
-                        
-                        self.photoCount += 1
-                        self.tableUserArray.append(tempUser)
-                        
-                        if self.photoCount == self.names.count {
-                            self.tableUserArray = self.tableUserArray.sort({$0 < $1})
-                            self.profilesReady = true
-                            self.reloadTable()
+                        else {
+                            self.activity(false)
+                            self.showAlert(parseNetworkOps.errorText())
                         }
-                    }
-                    self.activity(false)
-                })
+                        self.activity(false)
+                    })
+                }
             }
         }
     }
@@ -308,7 +317,6 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
                                         }
                                     }
                                 })
-                                
                             }
                             self.activity(false)
                             self.performSegueWithIdentifier("roundToLobby", sender: self)
@@ -351,30 +359,47 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         let parseNetwork = ParseNetworkOps(roomId: receivedRoomID)
         
         parseNetwork.getLobbyMembers { (result) -> Void in
-            parseNetwork.getLobbyCount({ (result) -> Void in
-                let objIds = parseNetwork.userObjID()
-                let places = parseNetwork.placeArray()
-                
-                var userCount = 0
-                var newPlaceSet = false
-                for id in objIds {
-                    let updateUser = UpdateUser(
-                        id: id,
-                        place: places[objIds.indexOf(id)!],
-                        userCount: parseNetwork.userCount())
-                    updateUser.updatePlace({ (result) -> Void in
-                        if (objIds.indexOf(id)! == self.defaults.integerForKey("place")) && !newPlaceSet {
-                            self.defaults.setInteger(updateUser.newPlace(), forKey: "place")
-                            newPlaceSet = true
-                        }
-                        userCount = userCount + 1
-                        if userCount == parseNetwork.userCount() {
-                            self.refresh(self)
-                        }
-                    })
-                }
+            if parseNetwork.errorPresent() {
+                self.showAlert(parseNetwork.errorText())
                 self.activity(false)
-            })
+            }
+            else {
+                parseNetwork.getLobbyCount({ (result) -> Void in
+                    
+                    if parseNetwork.errorPresent() {
+                        self.showAlert(parseNetwork.errorText())
+                        self.activity(false)
+                    }
+                    else {
+                        let objIds = parseNetwork.userObjID()
+                        let places = parseNetwork.placeArray()
+                        
+                        var userCount = 0
+                        var newPlaceSet = false
+                        for id in objIds {
+                            let updateUser = UpdateUser(
+                                id: id,
+                                place: places[objIds.indexOf(id)!],
+                                userCount: parseNetwork.userCount())
+                            updateUser.updatePlace({ (result) -> Void in
+                                if updateUser.errorPresent() {
+                                    self.showAlert(updateUser.errorText())
+                                }
+                                else {
+                                    if (objIds.indexOf(id)! == self.defaults.integerForKey("place")) && !newPlaceSet {
+                                        self.defaults.setInteger(updateUser.newPlace(), forKey: "place")
+                                        newPlaceSet = true
+                                    }
+                                    userCount = userCount + 1
+                                    if userCount == parseNetwork.userCount() {
+                                        self.refresh(self)
+                                    }
+                                }
+                            })
+                        }
+                    }
+                    self.activity(false)
+                })}
         }
     }
     
