@@ -44,8 +44,7 @@ app. Their images are kinda boring but they can be changed from the app.
 ### Login
 The app greets the user with a login screen. Pick any of the three accounts above to login with Facebook.
 ### Setup
-After a successful login, the app will show you the profile picture associted with the app, this can be changed by tapping
-the image. The user also prompts for a drink to be used as the default when entering new rooms.
+After a successful login, the app will show you the profile picture associted with the FB profile. The user also prompts for a drink to be used as the default when entering new rooms.
 ### Lobby
 From the lobby the user can either create a new room or join an already existing room.
 ### Roundtable (heh)
