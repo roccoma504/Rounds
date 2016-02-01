@@ -21,7 +21,6 @@ class DrinkViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var activityView: UIActivityIndicatorView!
     @IBOutlet weak var continueButton: UIBarButtonItem!
-    @IBOutlet weak var editButton: UIButton!
     
     /**
      On load set up the view to not allow the user to do anything until
@@ -130,8 +129,7 @@ class DrinkViewController: UIViewController, UITextFieldDelegate {
             self.profilePicture.layer.masksToBounds = true;
             self.activityView.stopAnimating()
             self.drinkText.hidden = false
-            self.editButton.hidden = false
-            self.messageText.text = "Hey there " + self.defaults.stringForKey("firstName")! + " and welcome to Rounds. If you don't like Enter your go to drink. This will be your default drink when you enter a new Round."
+            self.messageText.text = "Hey there " + self.defaults.stringForKey("firstName")! + " and welcome to Rounds. Enter your go to drink. This will be your default drink when you enter a new Round. You can change this later."
             self.messageText.textColor = UIColor .whiteColor()
         })
     }
