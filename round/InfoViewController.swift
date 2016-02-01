@@ -8,30 +8,34 @@
 
 import UIKit
 
-class InfoViewController: UIViewController {
+class InfoViewController: UIViewController, UITextFieldDelegate {
+    
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var drinkText: UITextField!
     
+    private var imagePicker = UIImagePickerController()
     private var documentsPath : String!
     private let defaults = NSUserDefaults.standardUserDefaults()
     private var drink : String!
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Looks for single or multiple taps to dismiss a text field.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+            action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        
         documentsPath = NSSearchPathForDirectoriesInDomains(
             .DocumentDirectory, .UserDomainMask, true)[0] + "/"
-        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        print(documentsPath)
         
         let userObj = objectRetrieve(managedContext, name: defaults.stringForKey("name")!, entity: "User")
-        print(userObj)
         drink = userObj.valueForKey("drink") as! String
         updateUI()
     }
-    
     
     private func updateUI(){
         dispatch_async(dispatch_get_main_queue(),{
@@ -43,10 +47,53 @@ class InfoViewController: UIViewController {
             self.drinkText.text = self.drink
         })
     }
-
+    @IBAction func editEnd(sender: AnyObject) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        let userObj = objectRetrieve(managedContext, name: defaults.stringForKey("name")!, entity: "User")
+        userObj.setValue(drinkText.text, forKey: "drink")
+        
+        do {
+            try managedContext.save()
+            defaults.setObject(userObj.valueForKey("drink"), forKey: "drink")
+        }
+        catch {
+            showAlert("There was an error. Your changes were not saved")
+        }
+        
+    }
+    
+    //# MARK Text field subprograms.
+    
+    // When the keyboard is dismissed end the editing on the field.
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    // Called when the return key is pressed.
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let segueDestVC = segue.destinationViewController
         let destVC = segueDestVC as! LandingViewController
         destVC.transFromLobby = true
+    }
+    
+    /**
+     This subprogram generates an alert for the user based upon conditions
+     in the application. This view controller can generate two different
+     alerts so this is here only for reuseability.
+     */
+    private func showAlert(message : String) {
+        dispatch_async(dispatch_get_main_queue(),{
+            let alertController = UIAlertController(title: "Error!", message:
+                message, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss",
+                style: UIAlertActionStyle.Default,handler: nil))
+            self.presentViewController(alertController,animated: true,completion: nil)
+        })
     }
 }

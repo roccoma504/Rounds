@@ -9,12 +9,11 @@
 import CoreData
 import UIKit
 
-class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class DrinkViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Private
     private let defaults = NSUserDefaults.standardUserDefaults()
     private var documentsPath : String!
-    private var imagePicker = UIImagePickerController()
     
     //MARK: - Outlets
     @IBOutlet weak var messageText: UITextView!
@@ -63,38 +62,11 @@ class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         return true
     }
     
-    @IBAction func picturePress(sender: AnyObject) {
-        imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .PhotoLibrary
-        presentViewController(imagePicker, animated: true, completion: nil)
-    }
-    
     // Defines a function that is invoked when the cancel button is pressed.
     @IBAction func cancelButtonPress(sender: AnyObject) {
         performSegueWithIdentifier("cancelPressSegue", sender: nil)
     }
-    
-    //# MARK: Image picker functions.
-    
-    // Defines a function that is called when the user picks an image.
-    // If the image is good set it to the image view and enable the share
-    // button. Dismiss the view either way.
-    func imagePickerController(picker: UIImagePickerController!,
-        didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
-            if let selectedImage : UIImage = image {
-                profilePicture.image = selectedImage
-                profilePicture.contentMode = .ScaleAspectFill
-                saveImage(profilePicture.image!)
-            }
-            dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    // Defines a function that is called when the user cancels the pick.
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
+
     /**
      This subprogram generates an alert for the user based upon conditions
      in the application. This view controller can generate two different
@@ -144,7 +116,6 @@ class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             self.showAlert("Could not save image. Your storage may be full. Free some space and try again.")
         }
         self.defaults.setValue("profile_pic.jpg", forKey: "picturePath")
-        
     }
     
     /**
@@ -160,7 +131,7 @@ class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             self.activityView.stopAnimating()
             self.drinkText.hidden = false
             self.editButton.hidden = false
-            self.messageText.text = "Hey there " + self.defaults.stringForKey("firstName")! + " and welcome to Rounds. If you don't like the picture we found, click on it to change it to one in your library. Next enter your go to drink. This will be your default drink when you enter a new Round."
+            self.messageText.text = "Hey there " + self.defaults.stringForKey("firstName")! + " and welcome to Rounds. If you don't like Enter your go to drink. This will be your default drink when you enter a new Round."
             self.messageText.textColor = UIColor .whiteColor()
         })
     }
