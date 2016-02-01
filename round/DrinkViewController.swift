@@ -164,13 +164,10 @@ class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        
         let entity =  NSEntityDescription.entityForName("User",
             inManagedObjectContext:managedContext)
-        
         let user = NSManagedObject(entity: entity!,
-            insertIntoManagedObjectContext: managedContext)
-        
+            insertIntoManagedObjectContext: managedContext)        
         
         // Set all of the managed object values/
         

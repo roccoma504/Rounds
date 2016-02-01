@@ -6,6 +6,7 @@
 //  Copyright © 2016 Matthew Rocco. All rights reserved.
 //
 
+import CoreData
 import UIKit
 
 class RoundTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -260,6 +261,7 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
                     newUser.updateParse({ (result) -> Void in
                         if !(newUser.errorPresent()) {
                             self.defaults.setValue(newDrink, forKey: "drink")
+                            self.save(newDrink)
                             self.refresh(self)
                         }
                         else {
@@ -400,6 +402,19 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
                     }
                     self.activity(false)
                 })}
+        }
+    }
+    
+    private func save(newDrink : String) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        do {
+            let userObj = objectRetrieve(managedContext, name: defaults.stringForKey("name")!, entity: "User") as! User
+            userObj.setValue(newDrink, forKey: "drink")
+            try managedContext.save()
+        }
+        catch {
+            showAlert("Error saving to Core Data. Your changes were not saved")
         }
     }
     
