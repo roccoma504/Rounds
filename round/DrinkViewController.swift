@@ -85,6 +85,7 @@ class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             if let selectedImage : UIImage = image {
                 profilePicture.image = selectedImage
                 profilePicture.contentMode = .ScaleAspectFill
+                saveImage(profilePicture.image!)
             }
             dismissViewControllerAnimated(true, completion: nil)
     }
@@ -106,7 +107,7 @@ class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             alertController.addAction(UIAlertAction(title: "Dismiss",
                 style: UIAlertActionStyle.Default,handler: nil))
             self.presentViewController(alertController,animated: true,completion: nil)
-        })  
+        })
     }
     
     /**
@@ -127,19 +128,23 @@ class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
                 dispatch_async(dispatch_get_main_queue(),{
                     self.setProfile(photoOps.profilePicture())
                     self.activityView.stopAnimating()
-                    
-                    // Convert the image to data for storage.
-                    let imageData: NSData =
-                    UIImageJPEGRepresentation(photoOps.profilePicture(), 1.0)!
-                    let filePath = self.documentsPath.stringByAppendingString("profile_pic.jpg")
-                    let success = imageData.writeToFile(filePath, atomically: true)
-                    if !success {
-                        self.showAlert("Could not save image. Your storage may be full. Free some space and try again.")
-                    }
-                    self.defaults.setValue("profile_pic.jpg", forKey: "picturePath")
+                    self.saveImage(photoOps.profilePicture())
                 })
             }
         }
+    }
+    
+    private func saveImage(image : UIImage) {
+        // Convert the image to data for storage.
+        let imageData: NSData =
+        UIImageJPEGRepresentation(image, 1.0)!
+        let filePath = self.documentsPath.stringByAppendingString("profile_pic.jpg")
+        let success = imageData.writeToFile(filePath, atomically: true)
+        if !success {
+            self.showAlert("Could not save image. Your storage may be full. Free some space and try again.")
+        }
+        self.defaults.setValue("profile_pic.jpg", forKey: "picturePath")
+        
     }
     
     /**
@@ -156,7 +161,7 @@ class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             self.drinkText.hidden = false
             self.editButton.hidden = false
             self.messageText.text = "Hey there " + self.defaults.stringForKey("firstName")! + " and welcome to Rounds. If you don't like the picture we found, click on it to change it to one in your library. Next enter your go to drink. This will be your default drink when you enter a new Round."
-            self.messageText.textColor = UIColor .whiteColor()            
+            self.messageText.textColor = UIColor .whiteColor()
         })
     }
     
@@ -167,7 +172,7 @@ class DrinkViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let entity =  NSEntityDescription.entityForName("User",
             inManagedObjectContext:managedContext)
         let user = NSManagedObject(entity: entity!,
-            insertIntoManagedObjectContext: managedContext)        
+            insertIntoManagedObjectContext: managedContext)
         
         // Set all of the managed object values/
         
