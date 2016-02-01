@@ -292,6 +292,14 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
             inLobby: false,
             lobbyNumber: "",
             place: 0)
+        /**
+        When a user laeves we need to do some work in removing him from
+        the lobby. Ideally this would all be done in server code on the
+        backend but thats not what this class is about. Loop through all
+        of the users in the lobby and check if their place is behind
+        the place of the person leaving. If so, decrease their place value. We
+        are essentially deleting an element from a queue here.
+        */
         newUser.parseId { (result) -> Void in
             if !(newUser.errorPresent()) {
                 newUser.updateParse({ (result) -> Void in
@@ -337,6 +345,7 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         }
         
     }
+    
     @IBAction func changeDrink(sender: AnyObject) {
         var drinkTextField: UITextField?
         let alertController = UIAlertController(
@@ -360,6 +369,13 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
         
         let parseNetwork = ParseNetworkOps(roomId: receivedRoomID)
         
+        /**
+        Similar to leaving the round, here the user who is buying the round
+        modifies every else's place (including their own). Again this would
+        be done ideally in server side code. Loop around all of the memebers
+        of the lobby. Essentially the head of the queue becomes the tail
+        and each element shifts by one.
+        */
         parseNetwork.getLobbyMembers { (result) -> Void in
             if parseNetwork.errorPresent() {
                 self.showAlert(parseNetwork.errorText())
@@ -378,6 +394,7 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
                         
                         var userCount = 0
                         var newPlaceSet = false
+                        
                         for id in objIds {
                             let updateUser = UpdateUser(
                                 id: id,
@@ -401,10 +418,14 @@ class RoundTableViewController: UIViewController, UITableViewDataSource, UITable
                         }
                     }
                     self.activity(false)
-                })}
+                })
+            }
         }
     }
     
+    /**
+     This function saves a new drink to Core DAta.
+     */
     private func save(newDrink : String) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
