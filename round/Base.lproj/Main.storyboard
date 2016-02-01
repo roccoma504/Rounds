@@ -400,19 +400,19 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nRD-ZF-fEB">
                                 <rect key="frame" x="250" y="87" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="23o-TD-cjH"/>
-                                    <constraint firstAttribute="height" constant="100" id="xN6-aZ-JRR"/>
+                                    <constraint firstAttribute="width" constant="100" id="0Gm-tr-Sxt"/>
+                                    <constraint firstAttribute="height" constant="100" id="VE6-Ct-IuE"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Drink" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="px7-7B-pmh">
                                 <rect key="frame" x="170" y="217" width="260" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="260" id="pJh-id-4u1"/>
+                                    <constraint firstAttribute="width" constant="260" id="CMO-7h-peR"/>
                                 </constraints>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done"/>
                                 <connections>
                                     <action selector="drinkFieldBegin:" destination="dSe-tk-Uj2" eventType="editingDidBegin" id="OM6-F6-Qh2"/>
                                     <action selector="editEnd:" destination="Lcy-3e-RIB" eventType="editingDidEnd" id="4aV-3s-T6p"/>
@@ -431,21 +431,35 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="lNS-ug-Ebc"/>
                                 </items>
                             </toolbar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1W-L1-87l">
+                                <rect key="frame" x="170" y="279" width="250" height="128"/>
+                                <color key="backgroundColor" red="0.16078431369999999" green="0.56078431370000004" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="uhX-12-4Ip"/>
+                                    <constraint firstAttribute="width" constant="250" id="x4H-aH-1fs"/>
+                                </constraints>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.16078431369999999" green="0.56078431370000004" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="VPb-3p-yWh" firstAttribute="bottom" secondItem="9QK-Of-e4R" secondAttribute="top" id="AjB-G8-I0y"/>
-                            <constraint firstItem="px7-7B-pmh" firstAttribute="top" secondItem="nRD-ZF-fEB" secondAttribute="bottom" constant="30" id="BQp-yk-eJw"/>
-                            <constraint firstAttribute="trailing" secondItem="VPb-3p-yWh" secondAttribute="trailing" id="Gtj-80-pvg"/>
-                            <constraint firstItem="VPb-3p-yWh" firstAttribute="leading" secondItem="WHc-Ys-20K" secondAttribute="leading" id="Jh4-vy-kFX"/>
-                            <constraint firstItem="nRD-ZF-fEB" firstAttribute="top" secondItem="MDd-GL-UVL" secondAttribute="bottom" constant="67" id="fYZ-75-v4d"/>
-                            <constraint firstItem="px7-7B-pmh" firstAttribute="centerX" secondItem="nRD-ZF-fEB" secondAttribute="centerX" id="gXB-Ay-KTy"/>
-                            <constraint firstItem="VPb-3p-yWh" firstAttribute="centerX" secondItem="px7-7B-pmh" secondAttribute="centerX" id="qsO-Bb-qXV"/>
+                            <constraint firstItem="px7-7B-pmh" firstAttribute="top" secondItem="nRD-ZF-fEB" secondAttribute="bottom" constant="30" id="JdF-0D-jiB"/>
+                            <constraint firstItem="VPb-3p-yWh" firstAttribute="leading" secondItem="WHc-Ys-20K" secondAttribute="leading" id="Tnp-3H-qsj"/>
+                            <constraint firstItem="px7-7B-pmh" firstAttribute="centerX" secondItem="nRD-ZF-fEB" secondAttribute="centerX" id="Vwh-K2-R0u"/>
+                            <constraint firstItem="VPb-3p-yWh" firstAttribute="bottom" secondItem="9QK-Of-e4R" secondAttribute="top" id="ZoA-Ak-s2w"/>
+                            <constraint firstItem="px7-7B-pmh" firstAttribute="centerX" secondItem="VPb-3p-yWh" secondAttribute="centerX" id="fJd-mS-MG9"/>
+                            <constraint firstItem="nRD-ZF-fEB" firstAttribute="top" secondItem="MDd-GL-UVL" secondAttribute="bottom" constant="23" id="i7p-Od-zOf"/>
+                            <constraint firstItem="c1W-L1-87l" firstAttribute="leading" secondItem="px7-7B-pmh" secondAttribute="leading" id="pp3-wG-GQE"/>
+                            <constraint firstItem="c1W-L1-87l" firstAttribute="top" secondItem="px7-7B-pmh" secondAttribute="bottom" constant="32" id="wPd-Qu-dWr"/>
+                            <constraint firstAttribute="trailing" secondItem="VPb-3p-yWh" secondAttribute="trailing" id="xhb-PR-Udt"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="drinkText" destination="px7-7B-pmh" id="dhX-OQ-NRe"/>
                         <outlet property="image" destination="nRD-ZF-fEB" id="Z8u-a4-Brw"/>
+                        <outlet property="textField" destination="c1W-L1-87l" id="hEU-TC-82V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UV0-rs-jo7" userLabel="First Responder" sceneMemberID="firstResponder"/>

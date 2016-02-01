@@ -12,8 +12,8 @@
         
         @IBOutlet weak var image: UIImageView!
         @IBOutlet weak var drinkText: UITextField!
+        @IBOutlet weak var textField: UITextView!
         
-        private var imagePicker = UIImagePickerController()
         private var documentsPath : String!
         private let defaults = NSUserDefaults.standardUserDefaults()
         private var drink : String!
@@ -37,6 +37,10 @@
             
             let userObj = objectRetrieve(managedContext, name: defaults.stringForKey("name")!, entity: "User")
             drink = userObj.valueForKey("drink") as! String
+            
+            textField.text = "Go ahead and chage your drink! When done, tap the background or hit Done on the keyboard and we'll save it for your next round!"
+            textField.textColor = UIColor .whiteColor()
+            
             updateUI()
         }
         
@@ -67,9 +71,11 @@
                 do {
                     try managedContext.save()
                     defaults.setObject(userObj.valueForKey("drink"), forKey: "drink")
+                    showAlert("Your drink was saved!", title: "Success!")
+                    
                 }
                 catch {
-                    showAlert("There was an error. Your changes were not saved")
+                    showAlert("There was an error. Your changes were not saved", title: "Error!")
                 }
             }
         }
@@ -97,13 +103,16 @@
          This subprogram generates an alert for the user based upon conditions
          in the application.
          */
-        private func showAlert(message : String) {
-            dispatch_async(dispatch_get_main_queue(),{
-                let alertController = UIAlertController(title: "Error!", message:
-                    message, preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss",
-                    style: UIAlertActionStyle.Default,handler: nil))
-                self.presentViewController(alertController,animated: true,completion: nil)
-            })
+        private func showAlert(message : String,
+            title : String) {
+                dispatch_async(dispatch_get_main_queue(),{
+                    let alertController = UIAlertController(title: title, message:
+                        message, preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss",
+                        style: UIAlertActionStyle.Default,handler: nil))
+                    self.presentViewController(alertController,animated: true,completion: nil)
+                })
         }
+        
+        
     }
